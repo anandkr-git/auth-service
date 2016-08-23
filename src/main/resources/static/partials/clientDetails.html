@@ -1,0 +1,46 @@
+<div data-ng-show="clientDetailsList.length" class="page-header">
+  <h3>Listing {{clientDetailsList.length}} client details</h3>
+</div>
+<div data-ng-show="!clientDetailsList.length" class="alert alert-info alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  No client details available to display!
+</div>
+<div data-ng-show="clientDetailsList.length" class="col-sm-4">
+  <input type="text" class="form-control" id="searchKeyword" placeholder="Search..." data-ng-model="searchKeyword">
+</div>
+<div class="clearfix"></div>
+<div class="col-sm-12 table-responsive">
+   <table data-ng-show="clientDetailsList.length" class="table table-striped table-condensed">
+       <thead>
+       <tr>
+           <th style="width:50px;">S. No.</th>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Redirect URL</th>
+           <th>Grant types</th>
+           <th>Access token validity</th>
+           <th>Refresh token validity</th>
+           <th>Scope</th>
+           <th>Auto approve</th>
+           <th style="width:20px;"> </th>
+           <th style="width:20px;"> </th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr data-ng-repeat="clientDetails in clientDetailsList | orderBy:'createdDate' | filter: searchKeyword">
+           <td>{{ $index + 1 }}</td>
+           <td>{{ clientDetails.clientId }}</td>
+           <td>{{ clientDetails.clientName }}</td>
+           <td>{{ clientDetails.webServerRedirectUri}}</td>
+           <td>{{ clientDetails.authorizedGrantTypes}}</td>
+           <td>{{ clientDetails.accessTokenValidity}}</td>
+           <td>{{ clientDetails.refreshTokenValidity}}</td>
+           <td>{{ clientDetails.scope}}</td>
+           <td>{{ clientDetails.autoapprove}}</td>
+           <td><a data-ng-click="editClient(clientDetails.clientId)" class="btn btn-sm btn-default"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>
+           <td><a data-ng-click="deleteClient(clientDetails.clientId)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o fa-lg"></i></a></td>
+       </tr>
+       </tbody>
+   </table>
+   <a data-ng-click="createNewClient()" class="btn btn-lg btn-success">Register new client</a>
+</div>

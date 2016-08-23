@@ -1,0 +1,1 @@
+var app = angular.module('authServiceApp', ['ngRoute', 'ngResource', 'angular-loading-bar']);

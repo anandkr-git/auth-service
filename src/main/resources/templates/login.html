@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+	<head>
+	  <meta charset="ISO-8859-1"></meta>
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title tiles:fragment="title">Authentication Service : Login</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>   
+	</head>
+	<body>
+	 <div tiles:fragment="content" class="container">
+	    <div class="col-xs-12" style="height:100px;"></div>
+		  <form class="col-sm-offset-3 form-horizontal" name="loginForm" th:action="@{/login}" method="post">
+		     <div class="form-group col-sm-8">
+		      <p><strong>Welcome to Authorization service. Please login to continue.</strong></p>
+		     </div>
+		     <div class="form-group">
+		        <div class="col-sm-8">
+				       <div th:if="${param.error}" class="alert alert-danger">Login failed. Invalid username and password.</div>
+			         <div th:if="${param.logout}" class="alert alert-success"> You have been logged out.</div>
+	          </div>
+         </div>
+	       <div class="form-group">
+	         <label for="username" class="col-sm-2 control-label">Username/Email:</label>
+	         <div class="col-sm-4">
+	           <input type="email" class="form-control" id="username" name="username" placeholder="Username/Email" />
+	         </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-4">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Login using Auth Server</button>
+          </div>
+        </div>
+      </form>
+    </div>
+	</body>
+</html>

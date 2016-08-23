@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title tiles:fragment="title">Authentication Service : Confirm Access</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>   
+</head>
+<body>
+  <!-- <div class="container col-sm-offset-3 col-sm-6"> -->
+  <div class="container">
+    <div class="col-xs-12" style="height:100px;"></div>
+	  <div class="col-sm-3"></div>
+	  <div class="col-sm-6">
+	    <div class="panel panel-primary">
+	       <div class="panel-heading">
+	         <h3 class="panel-title">Please confirm</h3>
+         </div>
+         <div class="panel-body">
+            <p>
+			        Do you authorize <strong><span th:text="${client.clientName}"/></strong> to access your protected resources with the following scope(s):
+			        <ul>
+			        <li th:each="scope : ${authorizationRequest.scope}" th:text="${scope}"></li>
+			        </ul>
+			      </p>
+			      <div class="col-sm-2">
+				      <form id="confirmationForm" name="confirmationForm" action="../oauth/authorize" method="post">
+				        <input name="user_oauth_approval" value="true" type="hidden" />
+				        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				        <input type="hidden" th:each="scope : ${authorizationRequest.scope}" th:attr="name=scope.+${scope}" value="true"></input>
+				        <button class="btn btn-primary" type="submit">Approve</button>
+				      </form>
+				    </div>
+				    <div class="col-sm-2">
+				      <form id="denyForm" name="denyForm" action="../oauth/authorize" method="post">
+				        <input name="user_oauth_approval" value="false" type="hidden" />
+				        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				        <input type="hidden" th:each="scope : ${authorizationRequest.scope}" th:attr="name=scope.+${scope}" value="false"></input>
+				        <button class="btn btn-primary" type="submit">Deny</button>
+				      </form>
+				    </div>
+         </div>
+	    </div>
+	  <div class="col-sm-3"></div>
+  </div>
+  </div>
+</body>
+</html>

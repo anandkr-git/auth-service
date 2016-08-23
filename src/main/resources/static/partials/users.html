@@ -1,0 +1,43 @@
+<div data-ng-show="users.length" class="page-header">
+  <h3>Listing {{users.length}} users</h3>
+</div>
+<div data-ng-show="!users.length" class="alert alert-info alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  No users available to display!
+</div>
+<div data-ng-show="users.length" class="col-sm-4">
+  <input type="text" class="form-control" id="searchKeyword" placeholder="Search..." data-ng-model="searchKeyword">
+</div>
+<div class="clearfix"></div>
+<div class="col-sm-12 table-responsive">
+   <table data-ng-show="users.length" class="table table-striped table-condensed">
+       <thead>
+       <tr>
+           <th style="width:50px;">S. No.</th>
+           <th>First Name</th>
+           <th>Middle Name</th>
+           <th>Last Name</th>
+           <th>Username</th>
+           <th>Email</th>
+           <th>Enabled</th>
+           <th style="width:20px;"> </th>
+           <th style="width:20px;"> </th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr data-ng-repeat="user in users | orderBy:'-id' | filter: searchKeyword">
+           <td>{{ $index + 1 }}</td>
+           <td>{{ user.firstName }}</td>
+           <td>{{ user.middleName }}</td>
+           <td>{{ user.lastName }}</td>
+           <td>{{ user.username }}</td>
+           <td>{{ user.email }}</td>
+           <td data-ng-if="user.enabled"><i class="fa fa-check fa-lg" aria-hidden="true"></i></td>
+           <td data-ng-if="!user.enabled"><i class="fa fa-times fa-lg" aria-hidden="true"></i></td>
+           <td><a data-ng-click="editUser(user.id)" class="btn btn-sm btn-default"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>
+           <td><a data-ng-click="deleteUser(user.id)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o fa-lg"></i></a></td>
+       </tr>
+       </tbody>
+   </table>
+   <a data-ng-click="createNewUser()" class="btn btn-lg btn-success">Create new user</a>
+</div>

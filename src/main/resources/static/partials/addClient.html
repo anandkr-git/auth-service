@@ -1,0 +1,172 @@
+<div class="page-header">
+  <h3>{{actionName}} Client:</h3>
+</div>
+<form name="clientForm" novalidate>
+	<div class="form-group col-sm-12">
+	  <div data-ng-show="added" class="alert alert-success alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>Success!</strong> Client <strong>{{clientDetails.clientName}}</strong> has been {{action}}. <a data-ng-href="#/clientdetails">View list</a>.
+		</div>
+		<div data-ng-show="alreadyExists" class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Not added!</strong> Client <strong>{{clientDetails.clientName}}</strong> already exists in the database. <a data-ng-href="#/clientdetails">View list</a>.
+    </div>
+    <div data-ng-show="errorAdding" class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Not added!</strong> There was a problem adding Client <strong>{{clientDetails.clientName}}</strong>. Please try again. <a data-ng-href="#/clientdetails">View list</a>.
+    </div>
+	  <div class="control-label" >
+	  	<label for="clientName">Client Name</label>
+	  </div>
+	  <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.clientName.$invalid && !clientForm.clientName.$pristine }">
+	  	<input 
+	  	  type="text" 
+	  	  class="form-control" 
+	  	  id="clientName" 
+	  	  name="clientName"
+	  	  placeholder="Enter client name - only alphabets" 
+	  	  data-ng-model="clientDetails.clientName" 
+	  	  data-ng-minlength="5" 
+	  	  data-ng-maxlength="20"
+	  	  data-ng-trim="true"
+	  	  data-ng-pattern="/^(\D)+$/"
+	  	  required/>
+	  	  <span data-ng-show="clientForm.clientName.$error.required && !clientForm.clientName.$pristine" class="text-danger">Name is required.</span>
+	  	  <span data-ng-show="clientForm.clientName.$error.minlength" class="text-danger">Name is too short.</span>
+        <span data-ng-show="clientForm.clientName.$error.maxlength" class="text-danger">Name is too long.</span>
+        <span data-ng-show="clientForm.clientName.$error.pattern" class="text-danger">Only alphabets allowed.</span>
+	  </div>
+	</div>
+	<div class="form-group col-sm-12">
+	   <div class="control-label" >
+      <label for="clientSecret">Client Secret</label>
+    </div>
+    <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.clientSecret.$invalid && !clientForm.clientSecret.$pristine }">
+      <input 
+        type="text" 
+        class="form-control" 
+        id="clientSecret" 
+        name="clientSecret"
+        placeholder="Enter client secret" 
+        data-ng-model="clientDetails.clientSecret" 
+        data-ng-minlength="5" 
+        data-ng-maxlength="20"
+        data-ng-trim="true"
+        required/>
+        <span data-ng-show="clientForm.clientSecret.$error.required && !clientForm.clientSecret.$pristine" class="text-danger">Secret is required.</span>
+        <span data-ng-show="clientForm.clientSecret.$error.minlength" class="text-danger">Secret is too short.</span>
+        <span data-ng-show="clientForm.clientSecret.$error.maxlength" class="text-danger">Secret is too long.</span>
+    </div>
+  </div>
+	<div class="form-group col-sm-12">
+	 <div class="control-label" >
+      <label for="webServerRedirectUri">Redirect URL</label>
+    </div>
+	 <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.webServerRedirectUri.$invalid && !clientForm.webServerRedirectUri.$pristine }">
+      <input 
+        type="url" 
+        class="form-control" 
+        id="webServerRedirectUri" 
+        name="webServerRedirectUri"
+        placeholder="Enter Redirect Uri" 
+        data-ng-model="clientDetails.webServerRedirectUri" 
+        data-ng-maxlength="50"
+        data-ng-trim="true"
+        required/>
+        <span data-ng-show="clientForm.webServerRedirectUri.$error.required && !clientForm.webServerRedirectUri.$pristine" class="text-danger">Redirect URL is required.</span>
+        <span data-ng-show="clientForm.webServerRedirectUri.$error.maxlength" class="text-danger">Redirect URL is too long.</span>
+        <span data-ng-show="clientForm.webServerRedirectUri.$error.url" class="text-danger">Please enter a valid URL.</span>
+    </div>
+	</div>
+	<div class="form-group col-sm-12">
+	 <div class="control-label" >
+      <label for="scope">Scope</label>
+   </div>
+   <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.scope.$invalid && !clientForm.scope.$pristine }">
+      <input 
+        type="text" 
+        class="form-control" 
+        id="scope" 
+        name="scope"
+        placeholder="Comma separated scopes e.g. Read,Write,Add Photos etc" 
+        data-ng-model="clientDetails.scope" 
+        data-ng-minlength="5" 
+        data-ng-maxlength="50"
+        data-ng-trim="true"
+        required/>
+        <span data-ng-show="clientForm.scope.$error.required && !clientForm.scope.$pristine" class="text-danger">Scope is required.</span>
+        <span data-ng-show="clientForm.scope.$error.minlength" class="text-danger">Scope is too short.</span>
+        <span data-ng-show="clientForm.scope.$error.maxlength" class="text-danger">Scope is too long.</span>
+    </div>
+  </div>
+  <div class="form-group col-sm-12">
+   <div class="control-label" >
+      <label for="accessTokenValidity">Access token validity</label>
+   </div>
+   <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.accessTokenValidity.$invalid && !clientForm.accessTokenValidity.$pristine }">
+      <input 
+        type="text" 
+        class="form-control" 
+        id="accessTokenValidity" 
+        name="accessTokenValidity"
+        placeholder="Enter value in seconds" 
+        data-ng-model="clientDetails.accessTokenValidity" 
+        data-ng-trim="true"
+        data-ng-pattern="/^\d+$/"
+        />
+        <span data-ng-show="clientForm.accessTokenValidity.$error.pattern" class="text-danger">Enter only numeric values.</span>
+    </div>
+  </div>
+  <div class="form-group col-sm-12">
+   <div class="control-label" >
+      <label for="refreshTokenValidity">Refresh token validity</label>
+   </div>
+   <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.refreshTokenValidity.$invalid && !clientForm.refreshTokenValidity.$pristine }">
+      <input 
+        type="text" 
+        class="form-control" 
+        id="refreshTokenValidity" 
+        name="refreshTokenValidity"
+        placeholder="Enter value in seconds" 
+        data-ng-model="clientDetails.refreshTokenValidity" 
+        data-ng-trim="true"
+        data-ng-pattern="/^\d+$/"
+        />
+        <span data-ng-show="clientForm.refreshTokenValidity.$error.pattern" class="text-danger">Enter only numeric values.</span>
+    </div>
+  </div>
+  <div class="form-group col-sm-12">
+    <div class="control-label" >
+      <label for="authorizedGrantTypesArray">Authorized grant types</label>
+    </div>
+    <div class="col-sm-5" data-ng-class="{ 'has-error' : clientForm.authorizedGrantTypesArray.$invalid && !clientForm.authorizedGrantTypesArray.$pristine }">
+		  <select class="form-control" 
+		  	name="authorizedGrantTypesArray" 
+		  	data-ng-model="clientDetails.authorizedGrantTypesArray"
+		  	multiple
+		  	data-ng-multiple="true"
+		  	data-ng-options="grantType.value for grantType in grantTypes track by grantType.name" 
+		  	required>
+		  </select>  
+		  <!-- <h3>You have selected: {{clientDetails.authorizedGrantTypesArray}}</h3> -->
+		  <span class="error" data-ng-show="clientForm.authorizedGrantTypesArray.$dirty && clientForm.authorizedGrantTypesArray.$invalid">Select grant type(s)</span>
+		</div>
+  </div>
+  <div class="form-group col-sm-12">
+    <div class="control-label" >
+      <label for="autoapprove">Whether autoapproved?</label>
+    </div>
+    <div class="col-sm-5">
+	  	<label class="radio-inline">
+		  <input type="radio" name="autoapprove" id="autoapproveYes" value="true" data-ng-model="clientDetails.autoapprove" data-ng-required="!autoapprove"> Yes
+		</label>
+		<label class="radio-inline">
+		  <input type="radio" name="autoapprove" id="autoapproveNo" value="false" data-ng-model="clientDetails.autoapprove" data-ng-required="!autoapprove"> No
+		</label>
+		</div>
+	</div>
+  <div>
+    <button type="submit" class="btn btn-default" data-ng-click="cancel();">Cancel</button>
+    <button type="submit" class="btn btn-primary" data-ng-click="addClient(clientDetails);" data-ng-disabled="clientForm.$invalid">{{btnlabel}}</button>
+   </div>
+</form>
